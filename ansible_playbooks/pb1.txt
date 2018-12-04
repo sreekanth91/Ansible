@@ -1,0 +1,15 @@
+---
+- hosts: ubnt
+  remote_user: root
+  gather_facts: true
+  tasks:
+   - name: to update packages
+     raw: apt-get update
+   - name: to install apache2
+     apt: name=apache2 state=latest
+   - name: to deploy file
+     copy:
+      src: /root/files/index.html
+      dest: /var/www/html/index.html
+   - name: to start service
+     service: name=apache2 state=started
